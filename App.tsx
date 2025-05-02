@@ -1,20 +1,32 @@
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { I18nManager } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AppNavigator from './src/navigation';
+import './src/i18n';
+import { useTranslation } from 'react-i18next';
+
+// Initialize Firebase services
+import './src/services/firebase';
 
 export default function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    // Force RTL layout for Arabic
+    if (i18n.language === 'ar') {
+      I18nManager.forceRTL(true);
+    } else {
+      I18nManager.forceRTL(false);
+    }
+  }, [i18n.language]);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaProvider>
       <StatusBar style="auto" />
-    </View>
+      <AppNavigator />
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
