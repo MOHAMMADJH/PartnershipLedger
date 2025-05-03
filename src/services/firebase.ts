@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import { initializeAuth, getReactNativePersistence, getAuth } from 'firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAuth as getFirebaseAuth } from 'firebase/auth';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -16,9 +15,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage)
-});
+
+// Initialize auth
+// In newer versions of Firebase, we don't need special handling for React Native
+// The standard getAuth works for all platforms
+const auth = getFirebaseAuth(app);
 
 // Function to check Firebase connection
 export const checkFirebaseConnection = async () => {
@@ -35,4 +36,4 @@ export const checkFirebaseConnection = async () => {
   }
 };
 
-export { app, db, auth, getAuth };
+export { app, db, auth, getFirebaseAuth as getAuth };
