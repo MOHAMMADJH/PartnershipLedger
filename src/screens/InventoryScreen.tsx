@@ -14,8 +14,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, ROUTES } from '../constants';
-import { getInventoryItems, getPurchases, getSales } from '../services/firestore';
+import { COLORS, ROUTES } from '../constants/index';
+import { getInventoryItems, getPurchases, getSales } from '../services/supabase';
 import { InventoryItem, Purchase, Sale } from '../types';
 
 const InventoryScreen = () => {

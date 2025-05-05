@@ -36,7 +36,8 @@
     "sales": "المبيعات",
     "profits": "الأرباح",
     "reports": "التقارير",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي"
   },
   "dashboard": {
     "title": "لوحة التحكم",
@@ -199,5 +200,21 @@
     "backup": "نسخ احتياطي",
     "restore": "استعادة",
     "about": "حول"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "accountSettings": "إعدادات الحساب",
+    "changePassword": "تغيير كلمة المرور",
+    "language": "اللغة",
+    "logout": "تسجيل الخروج",
+    "logoutConfirmTitle": "تأكيد تسجيل الخروج",
+    "logoutConfirmMessage": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
+    "logoutError": "حدث خطأ أثناء تسجيل الخروج. الرجاء المحاولة مرة أخرى.",
+    "loading": "جاري تحميل معلومات الملف الشخصي..."
+  },
+  "common": {
+    "logout": "تسجيل الخروج",
+    "cancel": "إلغاء",
+    "error": "خطأ"
   }
 }

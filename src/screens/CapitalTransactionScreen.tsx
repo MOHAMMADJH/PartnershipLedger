@@ -18,17 +18,18 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDateTimePicker from '../components/CustomDateTimePicker';
-import { COLORS } from '../constants';
-import {
-  getPartners,
-  getFunds,
-  addTransaction,
-  updatePartner,
-  updateFund,
-  getTransactionsByFund,
-  getTransactions
-} from '../services/firestore';
-import { checkFirebaseConnection } from '../services/firebase';
+import { COLORS } from '../constants/index';
+// Import from Supabase services
+import { checkSupabaseConnection } from '../services/supabase/client';
+import { getTransactionsByFund, addTransaction } from '../services/supabase/transactions';
+
+// TODO: Implement these functions in Supabase services
+// Temporary placeholders for functions that need to be implemented
+const getPartners = async (): Promise<Partner[]> => [];
+const getFunds = async (): Promise<Fund[]> => [];
+const updatePartner = async (id: string, data: Partial<Partner>): Promise<void> => {};
+const updateFund = async (id: string, data: Partial<Fund>): Promise<void> => {};
+const getTransactions = async (): Promise<Transaction[]> => [];
 import { Partner, Fund, Transaction } from '../types';
 
 const CapitalTransactionScreen = () => {
@@ -268,14 +269,14 @@ const CapitalTransactionScreen = () => {
       setLoading(true);
       setSaving(true); // Start showing loading animation
 
-      // Check Firebase connection first
-      console.log('Checking Firebase connection...');
-      const isConnected = await checkFirebaseConnection();
+      // Check Supabase connection first
+      console.log('Checking Supabase connection...');
+      const isConnected = await checkSupabaseConnection();
       if (!isConnected) {
-        console.log('Firebase connection failed');
+        console.log('Supabase connection failed');
         Alert.alert(
           t('common.error'),
-          'Could not connect to Firebase. Please check your internet connection and try again.'
+          'Could not connect to Supabase. Please check your internet connection and try again.'
         );
         setLoading(false);
         setSaving(false);

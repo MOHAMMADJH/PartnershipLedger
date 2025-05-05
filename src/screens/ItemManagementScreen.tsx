@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../constants';
-import { getInventoryItems, addInventoryItem, updateInventoryItem } from '../services/firestore';
+import { COLORS } from '../constants/index';
+import { getInventoryItems, addInventoryItem, updateInventoryItem } from '../services/supabase';
 import { InventoryItem } from '../types';
 
 const ItemManagementScreen = () => {
@@ -62,14 +62,20 @@ const ItemManagementScreen = () => {
   };
 
   const handleEditItem = (item: InventoryItem) => {
-    setEditingItem(item);
-    setName(item.name);
-    setDescription(item.description || '');
-    setPurchasePrice(item.purchasePrice.toString());
-    setSellingPrice(item.sellingPrice.toString());
-    setMinQuantity(item.minQuantity?.toString() || '');
-    setCategory(item.category || '');
-    setModalVisible(true);
+    try {
+      console.log('Editing item:', item);
+      setEditingItem(item);
+      setName(item.name || '');
+      setDescription(item.description || '');
+      setPurchasePrice(item.purchasePrice !== undefined ? item.purchasePrice.toString() : '0');
+      setSellingPrice(item.sellingPrice !== undefined ? item.sellingPrice.toString() : '0');
+      setMinQuantity(item.minQuantity !== undefined ? item.minQuantity.toString() : '0');
+      setCategory(item.category || '');
+      setModalVisible(true);
+    } catch (error) {
+      console.error('Error in handleEditItem:', error);
+      Alert.alert(t('common.error'), t('common.unexpectedError'));
+    }
   };
 
   const handleSaveItem = async () => {
@@ -83,30 +89,39 @@ const ItemManagementScreen = () => {
 
       const purchasePriceValue = parseFloat(purchasePrice);
       const sellingPriceValue = parseFloat(sellingPrice);
-      const minQuantityValue = minQuantity ? parseInt(minQuantity) : undefined;
+      const minQuantityValue = minQuantity ? parseInt(minQuantity) : 0;
+
+      console.log('Saving item with values:', {
+        name,
+        description,
+        purchasePriceValue,
+        sellingPriceValue,
+        minQuantityValue,
+        category
+      });
 
       if (editingItem) {
-        // Update existing item
+        // Update existing item - asegurarse de que los campos coincidan con la estructura de la base de datos
         await updateInventoryItem(editingItem.id, {
           name,
           description,
-          purchasePrice: purchasePriceValue,
-          sellingPrice: sellingPriceValue,
-          minQuantity: minQuantityValue,
-          category: category || undefined,
+          purchase_price: purchasePriceValue,  
+          selling_price: sellingPriceValue,    
+          min_quantity: minQuantityValue,      
+          category,
         });
       } else {
-        // Add new item
+        // Add new item - asegurarse de que los campos coincidan con la estructura de la base de datos
         await addInventoryItem({
           name,
           description,
           quantity: 0,
-          purchasePrice: purchasePriceValue,
-          sellingPrice: sellingPriceValue,
-          totalPurchaseCost: 0,
-          totalSaleValue: 0,
-          minQuantity: minQuantityValue,
-          category: category || undefined,
+          purchase_price: purchasePriceValue,  
+          selling_price: sellingPriceValue,    
+          total_purchase_cost: 0,               
+          total_sale_value: 0,                  
+          min_quantity: minQuantityValue,      
+          category,
         });
       }
 
@@ -167,12 +182,12 @@ const ItemManagementScreen = () => {
               <View style={styles.priceContainer}>
                 <View style={styles.priceItem}>
                   <Text style={styles.priceLabel}>{t('inventory.purchasePrice')}</Text>
-                  <Text style={styles.priceValue}>{item.purchasePrice.toFixed(2)}</Text>
+                  <Text style={styles.priceValue}>{(item.purchasePrice || 0).toFixed(2)}</Text>
                 </View>
 
                 <View style={styles.priceItem}>
                   <Text style={styles.priceLabel}>{t('inventory.sellingPrice')}</Text>
-                  <Text style={styles.priceValue}>{item.sellingPrice.toFixed(2)}</Text>
+                  <Text style={styles.priceValue}>{(item.sellingPrice || 0).toFixed(2)}</Text>
                 </View>
 
                 <View style={styles.priceItem}>
@@ -183,7 +198,7 @@ const ItemManagementScreen = () => {
                       { color: COLORS.SUCCESS }
                     ]}
                   >
-                    {(item.sellingPrice - item.purchasePrice).toFixed(2)}
+                    {((item.sellingPrice || 0) - (item.purchasePrice || 0)).toFixed(2)}
                   </Text>
                 </View>
               </View>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '../constants';
-import { getPartners, getFunds, getInventoryItems, getTransactions, getPurchases, getSales } from '../services/firestore';
-import { Partner, Fund, InventoryItem, Transaction, Purchase, Sale } from '../types';
+import { COLORS } from '../constants/index';
+import { getPartners, getFunds, getInventoryItems, getTransactions, getPurchases, getSales } from '../services/supabase';
+import { Partner, Fund, Transaction, Purchase, Sale } from '../types';
+import { InventoryItem } from '../types/index';
 
 const DashboardScreen = () => {
   const { t } = useTranslation();

@@ -41,12 +41,32 @@ export interface InventoryItem {
   name: string;
   description?: string;
   quantity: number;
-  purchasePrice: number;
-  sellingPrice: number;
-  totalPurchaseCost: number;
-  totalSaleValue: number;
-  minQuantity?: number; // Minimum quantity threshold for low stock alerts
-  category?: string; // Optional category for filtering
+  purchasePrice?: number; 
+  sellingPrice?: number; 
+  reorderLevel?: number; 
+  category?: string;
+  barcode?: string; 
+  supplier?: string; 
+  createdAt: string; 
+  updatedAt: string; 
+  createdBy?: string; 
+}
+
+// Interface representing the inventory item structure in the database (snake_case)
+export interface InventoryItemDb {
+  id: string;
+  name: string;
+  description?: string | null;
+  quantity: number;
+  purchase_price?: number | null;
+  selling_price?: number | null;
+  reorder_level?: number | null; 
+  category?: string | null;
+  barcode?: string | null;
+  supplier?: string | null;
+  created_at: string; 
+  updated_at: string; 
+  created_by?: string | null; 
 }
 
 // Purchase types
@@ -56,9 +76,9 @@ export interface Purchase {
   supplier: string;
   items: PurchaseItem[];
   totalAmount: number;
-  fundId: string; // Which fund was used for payment
+  fundId: string; 
   isPaid: boolean;
-  paymentMethod: 'cash' | 'bank'; // Payment method (cash or bank)
+  paymentMethod: 'cash' | 'bank'; 
 }
 
 export interface PurchaseItem {
@@ -77,9 +97,9 @@ export interface Sale {
   customer: string;
   items: SaleItem[];
   totalAmount: number;
-  fundId: string; // Which fund received the payment
+  fundId: string; 
   isPaid: boolean;
-  paymentMethod: 'cash' | 'bank'; // Payment method (cash or bank)
+  paymentMethod: 'cash' | 'bank'; 
 }
 
 export interface SaleItem {
@@ -89,7 +109,7 @@ export interface SaleItem {
   quantity: number;
   pricePerUnit: number;
   totalPrice: number;
-  profit: number; // Calculated profit for this sale item
+  profit: number; 
 }
 
 // Profit types

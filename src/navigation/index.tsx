@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { ROUTES, COLORS } from '../constants';
+import { ROUTES, COLORS } from '../constants/index';
 
 // Import screens
 import DashboardScreen from '../screens/DashboardScreen';
@@ -18,6 +18,7 @@ import SalesScreen from '../screens/SalesScreen';
 import ProfitsScreen from '../screens/ProfitsScreen';
 import ReportsScreen from '../screens/ReportsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -64,17 +65,16 @@ function MainTabs() {
   );
 }
 
-function AppNavigator() {
+function AppDrawerNavigator() {
   const { t } = useTranslation();
   return (
-    <NavigationContainer>
-      <Drawer.Navigator
-        initialRouteName="MainTabs"
-        screenOptions={{
-          drawerActiveTintColor: COLORS.PRIMARY,
-          drawerInactiveTintColor: COLORS.DARK,
-        }}
-      >
+    <Drawer.Navigator
+      initialRouteName="MainTabs"
+      screenOptions={{
+        drawerActiveTintColor: COLORS.PRIMARY,
+        drawerInactiveTintColor: COLORS.DARK,
+      }}
+    >
         <Drawer.Screen
           name="MainTabs"
           component={MainTabs}
@@ -155,9 +155,18 @@ function AppNavigator() {
             )
           }}
         />
+        <Drawer.Screen
+          name={ROUTES.PROFILE}
+          component={ProfileScreen}
+          options={{
+            drawerLabel: t('navigation.profile'),
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="person" size={size} color={color} />
+            )
+          }}
+        />
       </Drawer.Navigator>
-    </NavigationContainer>
   );
 }
 
-export default AppNavigator;
+export default AppDrawerNavigator;

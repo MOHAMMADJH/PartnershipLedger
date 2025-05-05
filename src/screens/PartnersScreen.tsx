@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, TextInput, Modal, Switch, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../constants';
-import { getPartners, addPartner, updatePartner, deletePartner, getFunds, addTransaction, addFund, updateFund, deleteFund } from '../services/firestore';
+import { COLORS } from '../constants/index';
+import { getPartners, addPartner, updatePartner, deletePartner, getFunds, addTransaction, addFund, updateFund, deleteFund } from '../services/supabase';
 import { Partner, Fund } from '../types';
 
 const PartnersScreen = () => {

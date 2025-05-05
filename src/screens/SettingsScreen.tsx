@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '../constants';
+import { COLORS } from '../constants/index';
 
 const SettingsScreen = () => {
   const { t, i18n } = useTranslation();
@@ -16,7 +16,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t('settings.title')}</Text>
-      
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{t('settings.language')}</Text>
         <View style={styles.settingItem}>
@@ -31,7 +31,7 @@ const SettingsScreen = () => {
           />
         </View>
       </View>
-      
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{t('settings.about')}</Text>
         <View style={styles.aboutContainer}>

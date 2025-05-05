@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Platform, TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../constants';
+import { COLORS } from '../constants/index';
 
 // Importar DateTimePicker con manejo de errores
 let DateTimePicker: any;

@@ -15,10 +15,18 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDateTimePicker from '../components/CustomDateTimePicker';
-import { COLORS } from '../constants';
-import { getPartners, getFunds, getTransactionsByFund, addFund, updateFund, deleteFund, addTransaction, getPartner } from '../services/firestore';
+import { COLORS } from '../constants/index';
 import { Fund, Transaction, Partner } from '../types';
-import { checkFirebaseConnection } from '../services/firebase';
+import { checkSupabaseConnection } from '../services/supabase/client';
+import { getTransactionsByFund, addTransaction } from '../services/supabase/transactions';
+// TODO: Implement these functions in Supabase services
+// Temporary placeholders for functions that need to be implemented
+const getFunds = async (): Promise<Fund[]> => [];
+const getPartners = async (): Promise<Partner[]> => [];
+const addFund = async (fund: Omit<Fund, 'id'>): Promise<Fund> => ({ id: `temp_${Date.now()}`, name: fund.name, balance: fund.balance, transactions: [] });
+const updateFund = async (fundId: string, data: Partial<Fund>): Promise<void> => {};
+const deleteFund = async (fundId: string): Promise<void> => {};
+const getPartner = async (partnerId: string): Promise<Partner> => ({ id: partnerId, name: '', share: 0, capitalBalance: 0, profitBalance: 0 });
 
 const FundsScreen = () => {
   const { t } = useTranslation();

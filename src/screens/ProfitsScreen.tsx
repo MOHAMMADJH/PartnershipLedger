@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS } from '../constants';
-import { getSales, getPurchases, getPartners, getInventoryItems } from '../services/firestore';
+import { COLORS } from '../constants/index';
+// import { getSales, getPurchases, getPartners, getInventoryItems } from '../services/firestore';
 import { Sale, Purchase, Partner, InventoryItem } from '../types';
 import ProfitSummaryCard from '../components/ProfitSummaryCard';
 import ProfitDistributionCard from '../components/ProfitDistributionCard';

@@ -1,5 +1,10 @@
-import { registerRootComponent } from 'expo';
+// Import polyfills first
+import './global-polyfills';
 
+// Import gesture handler for all environments
+import 'react-native-gesture-handler';
+
+import { registerRootComponent } from 'expo';
 import App from './App';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

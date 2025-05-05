@@ -36,7 +36,8 @@
     "sales": "Sales",
     "profits": "Profits",
     "reports": "Reports",
-    "settings": "Settings"
+    "settings": "Settings",
+    "profile": "Profile"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -199,5 +200,21 @@
     "backup": "Backup",
     "restore": "Restore",
     "about": "About"
+  },
+  "profile": {
+    "title": "Profile",
+    "accountSettings": "Account Settings",
+    "changePassword": "Change Password",
+    "language": "Language",
+    "logout": "Logout",
+    "logoutConfirmTitle": "Confirm Logout",
+    "logoutConfirmMessage": "Are you sure you want to log out?",
+    "logoutError": "Error logging out. Please try again.",
+    "loading": "Loading profile information..."
+  },
+  "common": {
+    "logout": "Logout",
+    "cancel": "Cancel",
+    "error": "Error"
   }
 }

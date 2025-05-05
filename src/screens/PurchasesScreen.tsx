@@ -15,18 +15,29 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDateTimePicker from '../components/CustomDateTimePicker';
-import { COLORS } from '../constants';
-import {
-  getPurchases,
-  addPurchase,
-  updatePurchase,
-  deletePurchase,
-  getInventoryItems,
-  getFunds,
-  updateInventoryItem,
-  updateFund
-} from '../services/firestore';
-import { checkFirebaseConnection } from '../services/firebase';
+import { COLORS } from '../constants/index';
+// Import from Supabase services
+import { checkSupabaseConnection } from '../services/supabase/client';
+
+// TODO: Implement these functions in Supabase services
+// Temporary placeholders for functions that need to be implemented
+const getPurchases = async (): Promise<Purchase[]> => [];
+const addPurchase = async (purchase: Omit<Purchase, 'id'>): Promise<Purchase> => ({
+  id: `temp_${Date.now()}`,
+  date: purchase.date,
+  supplier: purchase.supplier,
+  items: purchase.items,
+  totalAmount: purchase.totalAmount,
+  paymentMethod: purchase.paymentMethod,
+  fundId: purchase.fundId,
+  notes: purchase.notes
+});
+const updatePurchase = async (id: string, data: Partial<Purchase>): Promise<void> => {};
+const deletePurchase = async (id: string): Promise<void> => {};
+const getInventoryItems = async (): Promise<InventoryItem[]> => [];
+const getFunds = async (): Promise<Fund[]> => [];
+const updateInventoryItem = async (id: string, data: Partial<InventoryItem>): Promise<void> => {};
+const updateFund = async (id: string, data: Partial<Fund>): Promise<void> => {};
 import { Purchase, PurchaseItem, InventoryItem, Fund } from '../types';
 
 const PurchasesScreen = () => {
@@ -66,17 +77,17 @@ const PurchasesScreen = () => {
       setLoading(true);
       console.log('Fetching data...');
 
-      // Check Firebase connection first
-      const isConnected = await checkFirebaseConnection();
+      // Check Supabase connection first
+      const isConnected = await checkSupabaseConnection();
       if (!isConnected) {
         Alert.alert(
           t('common.error'),
-          'Could not connect to Firebase. Please check your internet connection and try again.'
+          'Could not connect to Supabase. Please check your internet connection and try again.'
         );
         return;
       }
 
-      console.log('Firebase connection verified, fetching data...');
+      console.log('Supabase connection verified, fetching data...');
 
       // Fetch purchases
       console.log('Fetching purchases...');
@@ -533,14 +544,14 @@ const PurchasesScreen = () => {
                     setSaving(true);
                     console.log('Saving purchase...');
 
-                    // Check Firebase connection first
-                    console.log('Checking Firebase connection...');
-                    const isConnected = await checkFirebaseConnection();
+                    // Check Supabase connection first
+                    console.log('Checking Supabase connection...');
+                    const isConnected = await checkSupabaseConnection();
                     if (!isConnected) {
                       setLoading(false);
                       Alert.alert(
                         t('common.error'),
-                        'Could not connect to Firebase. Please check your internet connection and try again.'
+                        'Could not connect to Supabase. Please check your internet connection and try again.'
                       );
                       return;
                     }

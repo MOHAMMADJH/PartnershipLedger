@@ -12,6 +12,7 @@ export const ROUTES = {
   PROFITS: 'Profits',
   REPORTS: 'Reports',
   SETTINGS: 'Settings',
+  PROFILE: 'Profile',
 };
 
 // Initial partners

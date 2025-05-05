@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { COLORS } from '../constants';
+import { COLORS } from '../constants/index';
 
 const ReportsScreen = () => {
   const { t } = useTranslation();
